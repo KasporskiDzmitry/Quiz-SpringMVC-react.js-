@@ -5,11 +5,11 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>org.example</groupId>
-  <artifactId>quiz123</artifactId>
+  <artifactId>Quiz_SpringMVC-react.js</artifactId>
   <version>1.0-SNAPSHOT</version>
   <packaging>war</packaging>
 
-  <name>quiz123 Maven Webapp</name>
+  <name>Quiz_SpringMVC-react.js Maven Webapp</name>
   <!-- FIXME change it to the project's website -->
   <url>http://www.example.com</url>
 
@@ -129,7 +129,7 @@
   </dependencies>
 
   <build>
-    <finalName>quiz123</finalName>
+    <finalName>Quiz_SpringMVC-react.js</finalName>
     <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
       <plugins>
         <plugin>
