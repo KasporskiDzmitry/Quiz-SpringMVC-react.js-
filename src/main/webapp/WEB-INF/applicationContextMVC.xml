@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    	http://www.springframework.org/schema/beans/spring-beans.xsd
+    	http://www.springframework.org/schema/context
+    	http://www.springframework.org/schema/context/spring-context.xsd
+    	http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+    <context:component-scan base-package="by.dz.quiz"/>
+    <context:component-scan base-package="by.dz.quiz.controller"/>
+    <context:component-scan base-package="by.dz.quiz.dao"/>
+    <context:component-scan base-package="by.dz.quiz.entity"/>
+    <context:component-scan base-package="by.dz.quiz.service"/>
+
+    <mvc:annotation-driven/>
+
+    <mvc:resources mapping="/static/**" location="/static/" />
+
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/view/" />
+        <property name="suffix" value=".jsp" />
+    </bean>
+
+    <!--Нужен для получения свойств из файла jdbc.properties-->
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="location" value="classpath:db.properties"/>
+    </bean>
+
+    <!-- Определение источника данных - мост между СУБД и Hibernate.-->
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="${db.driver}"/>
+        <property name="url" value="${db.url}"/>
+        <property name="username" value="${db.user}"/>
+        <property name="password" value="${db.password}"/>
+    </bean>
+
+    <!-- Фабрика, которая будет строить Hibernate-сессии -->
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+        <!-- бины снизу как бы ссылаются на конфигурационный файл hibernate-cfg, настройки которого описаны в dataSource
+        поэтому у нас hibernate.cfg.xml не используется   -->
+        <property name="dataSource" ref="dataSource"/>
+        <property name="packagesToScan" value="by.dz.quiz.entity"/>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.enable_lazy_load_no_trans">true</prop>
+                <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+                <prop key="hibernate.show_sql">true</prop>
+            </props>
+        </property>
+    </bean>
+
+
+    <!-- Менеджер транзакций-->
+    <bean id="txManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    <!-- СЛЕДУЮЩАЯ секция для того, чтобы работал механизм транзакций с использованием @Transactional  -->
+    <!--  tx:annotation-driven включает механизм управления транзакциями через аннотации -->
+    <tx:annotation-driven transaction-manager="txManager" proxy-target-class="true"/>
+</beans>
