@@ -9,7 +9,7 @@ import java.util.Date;
  */
 
 @Entity()
-@Table(name = "players")
+@Table(name = "quiz.players")
 public class Player {
 
     @Id
