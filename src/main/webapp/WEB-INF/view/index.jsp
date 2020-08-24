@@ -14,7 +14,7 @@
 <body>
 <div id="root"></div>
 <script src="<c:url value="/static/js/2.609e4458.chunk.js"/>"></script>
-<script src="<c:url value="/static/js/main.539f9c98.chunk.js"/>"></script>
+<script src="<c:url value="/static/js/main.f83c46a1.chunk.js"/>"></script>
 <script src="<c:url value="/static/js/runtime-main.6d8ceafa.js"/>"></script>
 </body>
 </html>
