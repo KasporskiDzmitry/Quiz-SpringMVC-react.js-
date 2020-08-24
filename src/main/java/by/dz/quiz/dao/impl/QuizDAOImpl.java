@@ -23,13 +23,13 @@ public class QuizDAOImpl implements QuizDAO {
 
     @Override
     public List<Topic> getTopics() {
-        Query query = sessionFactory.getCurrentSession().createQuery("FROM Topic").setMaxResults(5);
+        Query query = sessionFactory.getCurrentSession().createQuery("FROM topics").setMaxResults(5);
         return query.getResultList();
     }
 
     @Override
     public Question getQuestion(int topicId, int value) {
-        Query query = sessionFactory.getCurrentSession().createQuery("FROM Question WHERE value = :value AND id_topic = :id");
+        Query query = sessionFactory.getCurrentSession().createQuery("FROM question WHERE value = :value AND id_topic = :id");
         query.setParameter("value", value);
         query.setParameter("id", topicId);
         return (Question) query.getResultList().get(0);
@@ -42,7 +42,7 @@ public class QuizDAOImpl implements QuizDAO {
 
     @Override
     public List<Player> getAllResults() {
-        Query query = sessionFactory.getCurrentSession().createQuery("FROM Player ORDER BY score DESC");
+        Query query = sessionFactory.getCurrentSession().createQuery("FROM players ORDER BY score DESC");
         query.setMaxResults(20);
         return query.getResultList();
     }
