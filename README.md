@@ -3,7 +3,7 @@
 Quiz application, where you can play  1 vs 1 with friends.
 It is demo version with onlny 5 available topics.
 
-## Getting Started
+## Get Started
 
 https://quizdz.herokuapp.com/
 
